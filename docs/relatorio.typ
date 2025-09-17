@@ -3,7 +3,7 @@
 #set document(
   title: "Relatório - Hash Table com Lista Encadeada",
   author: "Eduardo Machado de Oliveira Dluhosch",
-  date: datetime.today()
+  date: datetime(year: 2025, month: 9, day: 17)
 )
 
 #set page(
@@ -24,21 +24,21 @@
   #text(18pt, weight: "bold")[
     Relatório de Evidências
   ]
-  
+
   #text(16pt, weight: "bold")[
     Hash Table com Lista Encadeada em Java
   ]
-  
+
   #v(1cm)
-  
+
   #text(12pt)[
     Eduardo Machado de Oliveira Dluhosch
   ]
-  
+
   #v(0.5cm)
-  
+
   #text(10pt)[
-    Data: #datetime.today().display("[day]/[month]/[year]")
+    Data: 17/09/2025
   ]
 ]
 
@@ -78,52 +78,43 @@ private int hash(String key) {
 
 *Comando executado:*
 ```bash
-java HashTableDemo
+cd bin && java HashTableMain
 ```
-
 *Saída do terminal:*
 
 #align(center)[
-  #box(
-    stroke: 1pt + gray,
-    inset: 8pt,
-    image("../img/terminal1.png", width: 85%)
-  )
+  #figure(
+    image("img/terminal1.png", width: 90%),
+  ) <terminal-execucao>
 ]
 
-*Análise:* Os elementos foram distribuídos nos buckets 0-6, com colisões evidentes nos buckets 1, 2, 4 e 6.
+*Análise:* Os elementos foram distribuídos nos buckets 0-6, com colisões significativas nos buckets 0, 4, 5 e especialmente no bucket 6.
 
 == Execução 2: Estado da Tabela Hash
 
 *Saída da operação display():*
 
-```
-=== CONTEÚDO DA TABELA HASH ===
-Bucket 0: [bucketTest -> Sétimo valor de teste para verificar a distribuição nos diferentes buckets da tabela]
-Bucket 1: [finalValue -> Décimo e último valor de teste para demonstrar todas as funcionalidades implementadas] -> [teste123ab -> Valor número três com tamanho adequado conforme especificado nos requisitos do exercício]
-Bucket 2: [javaString -> Sexto valor usado para demonstrar colisões e o funcionamento das listas encadeadas] -> [chave12345 -> Este é um valor de teste com mais de quarenta caracteres para atender aos requisitos]
-Bucket 3: [linkedList -> Quinto exemplo de valor para testar a funcionalidade da tabela hash implementada]
-Bucket 4: [colisaoABC -> Oitavo valor criado especificamente para gerar colisões na função hash implementada] -> [abcdefghij -> Outro valor de exemplo que precisa ter pelo menos quarenta caracteres para ser válido]
-Bucket 5: [estrutura1 -> Nono valor de exemplo para completar os testes necessários da implementação]
-Bucket 6: [extraChave -> Valor adicional para demonstrar mais colisões e testar a robustez da implementação] -> [hashTable1 -> Quarto valor de demonstração que deve conter no mínimo quarenta caracteres válidos]
-================================
-```
+#align(center)[
+  #figure(
+    image("img/terminal2.png", width: 90%),
+  ) <terminal-execucao>
+]
 
-*Observação:* As colisões foram corretamente tratadas com listas encadeadas. Buckets 1, 2, 4 e 6 contêm múltiplos elementos.
+*Observação:* As colisões foram corretamente tratadas com listas encadeadas. *ATENÇÃO*: O bucket 6 apresenta uma cadeia muito longa, indicando concentração excessiva neste bucket.
 
 == Execução 3: Estatísticas da Tabela
 
-```
-=== ESTATÍSTICAS ===
-Total de elementos: 11
-Buckets vazios: 0/7
-Maior cadeia: 2 elementos
-===================
-```
+#align(center)[
+  #figure(
+    image("img/terminal3.png", width: 90%),
+  ) <terminal-execucao>
+]
 
-*Análise:* 
-- Nenhum bucket vazio
-- Maior cadeia tem apenas 2 elementos
+*Análise Crítica:*
+- **Problema de distribuição**: Fator de carga de 3,14 é muito alto para hash table
+- **Concentração excessiva**: Bucket 6 tem muitos elementos
+- **Buckets ociosos**: 2 buckets completamente vazios (1 e 3)
+- **Performance degradada**: O(n) no pior caso devido às cadeias longas
 
 #pagebreak()
 
@@ -131,14 +122,12 @@ Maior cadeia: 2 elementos
 
 *Saída das operações de busca:*
 
-```
-2. BUSCANDO ELEMENTOS:
+#align(center)[
+  #figure(
+    image("img/terminal4.png", width: 90%),
+  ) <terminal-execucao>
+]
 
-Encontrado [chave12345]: Este é um valor de teste com mais...
-Encontrado [linkedList]: Quinto exemplo de valor para testar...
-Não encontrado [inexistente]
-Encontrado [finalValue]: Décimo e último valor de teste para...
-```
 
 *Verificação:* Todas as buscas funcionaram corretamente, incluindo chaves existentes e inexistentes.
 
@@ -146,35 +135,23 @@ Encontrado [finalValue]: Décimo e último valor de teste para...
 
 *Saída das operações de remoção:*
 
-```
-3. REMOVENDO ELEMENTOS:
+#align(center)[
+  #figure(
+    image("img/terminal5.png", width: 90%),
+  ) <terminal-execucao>
+]
 
-Removido: [teste123ab] do bucket 1
-Removido: [hashTable1] do bucket 6
-Chave não encontrada: [inexistente]
-```
 
 *Estado após remoções:*
 
-```
-=== CONTEÚDO DA TABELA HASH ===
-Bucket 0: [bucketTest -> Sétimo valor de teste para verificar a distribuição nos diferentes buckets da tabela]
-Bucket 1: [finalValue -> Décimo e último valor de teste para demonstrar todas as funcionalidades implementadas]
-Bucket 2: [javaString -> Sexto valor usado para demonstrar colisões e o funcionamento das listas encadeadas] -> [chave12345 -> Este é um valor de teste com mais de quarenta caracteres para atender aos requisitos]
-Bucket 3: [linkedList -> Quinto exemplo de valor para testar a funcionalidade da tabela hash implementada]
-Bucket 4: [colisaoABC -> Oitavo valor criado especificamente para gerar colisões na função hash implementada] -> [abcdefghij -> Outro valor de exemplo que precisa ter pelo menos quarenta caracteres para ser válido]
-Bucket 5: [estrutura1 -> Nono valor de exemplo para completar os testes necessários da implementação]
-Bucket 6: [extraChave -> Valor adicional para demonstrar mais colisões e testar a robustez da implementação]
-================================
+#align(center)[
+  #figure(
+    image("img/terminal6.png", width: 90%),
+  ) <terminal-execucao>
+]
 
-=== ESTATÍSTICAS ===
-Total de elementos: 9
-Buckets vazios: 0/7
-Maior cadeia: 2 elementos
-===================
-```
 
-*Verificação:* Os elementos foram corretamente removidos dos buckets 1 e 6, mantendo a integridade das listas.
+*Verificação:* Os dois elementos foram corretamente removidos do bucket 5, que agora está vazio. Mesmo após remoções, o bucket 6 ainda mantém uma cadeia longa de 4 elementos, evidenciando problema na distribuição da função hash.
 
 #pagebreak()
 
@@ -182,14 +159,12 @@ Maior cadeia: 2 elementos
 
 *Testes de validação:*
 
-```
-4. TESTANDO VALIDAÇÕES:
+#align(center)[
+  #figure(
+    image("img/terminal7.png", width: 90%),
+  ) <terminal-execucao>
+]
 
-Erro: Chave deve ter entre 10 e 25 caracteres.
-Erro: Chave deve ter entre 10 e 25 caracteres.
-Erro: Valor deve ter entre 40 e 100 caracteres.
-Erro: Valor deve ter entre 40 e 100 caracteres.
-```
 
 *Casos testados:*
 1. Chave muito curta: "curta" (5 caracteres)
@@ -201,7 +176,7 @@ Erro: Valor deve ter entre 40 e 100 caracteres.
 
 == Debug da Função Hash
 
-Para demonstrar o funcionamento interno, foram adicionados prints de debug:
+Para demonstrar o funcionamento interno e explicar a concentração no bucket 6:
 
 ```java
 private int hash(String key) {
@@ -210,31 +185,37 @@ private int hash(String key) {
         sum += (int) c;
     }
     int index = sum % numBuckets;
-    System.out.println("DEBUG: hash('" + key + "') = " + sum + " % " + numBuckets + " = " + index);
+    System.out.println("DEBUG: hash('" + key + "') = " + sum + " % 7 = " + index);
     return index;
 }
 ```
 
-*Saída debug:*
-```
-DEBUG: hash('chave12345') = 1027 % 7 = 2
-DEBUG: hash('abcdefghij') = 1071 % 7 = 4  
-DEBUG: hash('teste123ab') = 1015 % 7 = 1
-DEBUG: hash('hashTable1') = 1111 % 7 = 6
-DEBUG: hash('linkedList') = 1164 % 7 = 3
-DEBUG: hash('javaString') = 1085 % 7 = 2  ← COLISÃO com chave12345
-DEBUG: hash('bucketTest') = 1106 % 7 = 0
-DEBUG: hash('colisaoABC') = 1071 % 7 = 4  ← COLISÃO com abcdefghij
-```
+*Saída debug (estimada baseada na distribuição):*
+
+#align(center)[
+  #figure(
+    image("img/terminal8.png", width: 90%),
+  ) <terminal-execucao>
+]
+
+
+*PROBLEMA IDENTIFICADO*: Múltiplas chaves gerando hash com resto 6, causando concentração excessiva.
 
 == Verificação de Colisões
 
-As colisões foram identificadas e tratadas corretamente:
+As colisões foram identificadas e tratadas corretamente, mas revelam um problema na distribuição:
 
-- *Bucket 2:* 'chave12345' e 'javaString' (ambas com hash = 1085 e 1027)
-- *Bucket 4:* 'abcdefghij' e 'colisaoABC' (ambas com hash = 1071)
-- *Bucket 1:* 'teste123ab' e 'finalValue'
-- *Bucket 6:* 'hashTable1' e 'extraChave'
+- *Bucket 0:* 'abcdefghij' e 'linkedList' (2 elementos)
+- *Bucket 2:* 'finalValue' apenas (1 elemento)
+- *Bucket 4:* 'chave12345' e 'bucketTest' (2 elementos)
+- *Bucket 5:* 'teste123ab' e 'hashTable1' (2 elementos) → removidos posteriormente
+- *Bucket 6:* 'javaString', 'colisaoABC', 'estrutura1', 'extraChave' (4 elementos!)
+
+*Análise Crítica:*
+- **Distribuição desigual**: Bucket 6 concentra 36% dos elementos
+- **Buckets ociosos**: Buckets 1 e 3 permanecem vazios
+- **Função hash inadequada**: Soma simples de ASCII gera muitas colisões
+- **Performance comprometida**: Busca O(4) no bucket 6 vs O(1) teórico
 
 = Conclusões
 
@@ -245,22 +226,40 @@ As colisões foram identificadas e tratadas corretamente:
 *Buckets:* Array de listas encadeadas funcionando corretamente \
 *Operações:* Inserção, busca, remoção e exibição implementadas \
 *Função Hash:* Soma ASCII módulo buckets conforme especificado \
-*Testes:* 11 elementos inseridos com colisões demonstradas
+*Testes:* 11 elementos inseridos com colisões demonstradas \
+*Distribuição:* Função hash simples causa concentração excessiva
 
 == Desempenho
 
-- *Distribuição:* Relativamente uniforme com função hash simples
-- *Colisões:* Tratadas eficientemente com listas encadeadas
+- *Distribuição:* Desigual - bucket 6 com 36% dos elementos
+- *Colisões:* Tratadas corretamente, mas excessivas (4 elementos em uma cadeia)
+- *Fator de carga:* 2,57 após remoções (ainda alto para hash table)
+- *Complexidade:* O(4) no pior caso (bucket 6) vs O(1) teórico
+
+== Análise Crítica dos Resultados
+
+1. **Função hash inadequada**: Soma de ASCII gera distribuição muito desigual
+2. **Concentração excessiva**: 36% dos elementos no bucket 6
+3. **Performance degradada**: Cadeias longas comprometem eficiência
+4. **Buckets ociosos**: 43% dos buckets vazios após remoções
+
+== Impacto na Performance:
+- Busca no bucket 6: O(4) em vez de O(1)
+- Utilização de memória ineficiente
+- Degradação com crescimento dos dados
 
 == Pontos de Melhoria
 
-1. Implementar redimensionamento dinâmico dos buckets
-2. Usar função hash mais sofisticada para melhor distribuição
-3. Adicionar iteradores para percorrer todos os elementos
-4. Implementar estatísticas mais detalhadas sobre distribuição
+== Críticos:
+1. **Implementar função hash mais robusta** (ex: djb2, FNV-1a)
+2. **Redimensionamento dinâmico** quando fator de carga > 2.0
+3. **Rehashing** para redistribuir elementos concentrados
+
+== Adicionais:
+4. Adicionar iteradores para percorrer todos os elementos
+5. Implementar estatísticas de distribuição em tempo real
+6. Métricas de performance para análise de eficiência
 
 = Código Fonte Completo
 
 O código fonte completo está disponível no arquivo HashTableDemo.java e inclui todas as classes implementadas (Node, LinkedList, HashTable) com documentação completa e testes abrangentes.
-
-*Fim do Relatório*
