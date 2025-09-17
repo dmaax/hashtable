@@ -251,7 +251,7 @@ As colisões foram identificadas e tratadas corretamente, mas revelam um problem
 == Pontos de Melhoria
 
 == Críticos:
-1. **Implementar função hash mais robusta** (ex: djb2, FNV-1a)
+1. **Implementar função hash mais robusta** (ex: djb2, FNV-1a, AK8n2)
 2. **Redimensionamento dinâmico** quando fator de carga > 2.0
 3. **Rehashing** para redistribuir elementos concentrados
 
