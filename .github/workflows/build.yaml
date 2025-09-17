@@ -21,7 +21,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PDF
-          path: *.pdf
+          path: docs/*.pdf
 
       - name: Get current date
         id: date
@@ -32,5 +32,5 @@ jobs:
         if: github.ref_type == 'tag'
         with:
           name: "${{ github.ref_name }} — ${{ env.DATE }}"
-          files: relatorio.pdf
+          files: docs/relatorio.pdf
 
