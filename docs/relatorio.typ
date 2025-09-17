@@ -262,4 +262,4 @@ As colisões foram identificadas e tratadas corretamente, mas revelam um problem
 
 = Código Fonte Completo
 
-O código fonte completo está disponível no arquivo HashTableDemo.java e inclui todas as classes implementadas (Node, LinkedList, HashTable) com documentação completa e testes abrangentes.
+O código fonte completo está disponível no arquivo HashTableMain.java e inclui todas as classes implementadas (Node, LinkedList, HashTable) com documentação completa e testes abrangentes.
