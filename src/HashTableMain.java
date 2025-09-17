@@ -109,9 +109,11 @@ class HashTable {
         for (char c : key.toCharArray()) {
             sum += (int) c;
         }
-        return sum % numBuckets;
+        int index = sum % numBuckets;
+        System.out.println("DEBUG: hash('" + key + "') = " + sum + " % 7 = " + index);
+        return index;
     }
-    
+
     private boolean isValidKey(String key) {
         return key != null && key.length() >= 10 && key.length() <= 25;
     }
